@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/560e74d8-b473-4d88-bf30-bfb64b05aac9)
 
-Khi tải về chúng ta được 1 file nén mà khi giải nén ra chúng ta dược 1 file pcap mở ra bằng wireshanks tui ```object list``` > ```SMB```` được 2 file ```netlab1.7z``` và ```password.txt```
+Khi tải về chúng ta được 1 file nén mà khi giải nén ra chúng ta dược 1 file pcap mở ra bằng wireshanks ```object list``` > ```SMB```` được 2 file ```netlab1.7z``` và ```password.txt```
 
 ![image](https://github.com/user-attachments/assets/0df3a664-e51c-4c33-8b01-6fafb3aa339f)
 
