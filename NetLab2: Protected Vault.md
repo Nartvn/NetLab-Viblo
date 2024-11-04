@@ -49,22 +49,31 @@ with open('dns.txt', 'r', encoding='utf-8') as file:
 # Xử lý nội dung
 processed_lines = []
 for line in content:
-    # Thay thế '-.' bằng ký tự xuống dòng
-    line = line.replace('-.', '\n')
-    
-    # Thay thế '}' bằng '+'
-    line = line.replace('}', '+')
-    
-    # Thay thế '{' bằng '/'
-    line = line.replace('{', '/')
-    
-    processed_lines.append(line)
+    # Giải mã chuỗi hex
+    try:
+        decoded_line = bytes.fromhex(line.strip()).decode('utf-8')
+        
+        # Thay thế '-.' bằng ký tự xuống dòng
+        decoded_line = decoded_line.replace('-.', '\n')
+        
+        # Thay thế '}' bằng '+'
+        decoded_line = decoded_line.replace('}', '+')
+        
+        # Thay thế '{' bằng '/'
+        decoded_line = decoded_line.replace('{', '/')
+        
+        # Nếu dòng không chứa "ubuntu", thêm vào danh sách
+        if 'ubuntu' not in decoded_line:
+            processed_lines.append(decoded_line)
+    except Exception as e:
+        print(f"Không thể giải mã dòng: {line.strip()} - Lỗi: {e}")
 
 # Ghi kết quả vào tệp output
-with open('t3.txt', 'w', encoding='utf-8') as file:
+with open('t2.txt', 'w', encoding='utf-8') as file:
     file.writelines(processed_lines)
 
 print("Quá trình xử lý đã hoàn tất!")
+
 ```
 
 Sau khi tách bằng file code sau được file t3.txt nhưng không đẩu đủ chúng ta cần xóa những dòng dư thừa bằng code python sau.
@@ -116,8 +125,18 @@ thấy được đích r
 
 ![image](https://github.com/user-attachments/assets/0d331f03-b9cd-467e-a04c-1df059a2332f)
 
+
+
+
 Sau khi mò thì thấy file Flag.kdbx hợp lý nhất nên sẽ tấn công nó.
 
 Có vẻ như file ```.kdbx``` là file nén đặc biệt nên cần tải công cụ đặc biệt để mở nó.
+
+![image](https://github.com/user-attachments/assets/d1a72f03-8115-4ce9-a217-6e85f72bfb49)
+
+Không chỉ là đặc biệt mà còn cần key.
+
+![image](https://github.com/user-attachments/assets/f8199a70-2bbd-479b-b6ee-4b290d5b426a)
+
 
 
