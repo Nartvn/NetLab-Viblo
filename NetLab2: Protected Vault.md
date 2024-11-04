@@ -93,6 +93,8 @@ with open('gob', 'w', encoding='utf-8') as file:
 print("Quá trình xử lý đã hoàn tất!")
 ```
 
+Sau đó chúng ta decode base64 treeb cyberchef đem đi binwalk.
+
 sau z chúng ta binwalk được file nén sau được con đường hy vọng.
 
 ```python
@@ -115,5 +117,7 @@ thấy được đích r
 ![image](https://github.com/user-attachments/assets/0d331f03-b9cd-467e-a04c-1df059a2332f)
 
 Sau khi mò thì thấy file Flag.kdbx hợp lý nhất nên sẽ tấn công nó.
+
+Có vẻ như file ```.kdbx``` là file nén đặc biệt nên cần tải công cụ đặc biệt để mở nó.
 
 
