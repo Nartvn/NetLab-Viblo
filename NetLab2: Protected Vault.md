@@ -41,4 +41,79 @@ tshark -nr netlab2.pcap -Y "dns" -T fields -e dns.qry.name > dns.txt
 
 Có vẻ này là file đã decode từ đoạn code kia và vì tác giả bài wu đã thử base64 rất nhiều lần :))). Nên giờ sẽ sửa lại như 2 điều ở trên đã nói bằng đoạn python sau.
 
+```python
+# Đọc nội dung từ tệp input
+with open('dns.txt', 'r', encoding='utf-8') as file:
+    content = file.readlines()
+
+# Xử lý nội dung
+processed_lines = []
+for line in content:
+    # Thay thế '-.' bằng ký tự xuống dòng
+    line = line.replace('-.', '\n')
+    
+    # Thay thế '}' bằng '+'
+    line = line.replace('}', '+')
+    
+    # Thay thế '{' bằng '/'
+    line = line.replace('{', '/')
+    
+    processed_lines.append(line)
+
+# Ghi kết quả vào tệp output
+with open('t3.txt', 'w', encoding='utf-8') as file:
+    file.writelines(processed_lines)
+
+print("Quá trình xử lý đã hoàn tất!")
+```
+
+Sau khi tách bằng file code sau được file t3.txt nhưng không đẩu đủ chúng ta cần xóa những dòng dư thừa bằng code python sau.
+
+```python
+# Các chuỗi cần xóa
+strings_to_remove = [
+    "7bgTtW3Fp59pgy", "2PmGj7XTSNwg5", "2NHJWYG1EYAkZ",
+    "2x9kyYFcUyDeC2c65", "4xUi2j75eJtNc1", "2tuJoHGout6YhgSX3",
+    "9CUmw2dKFRrmvfhiEM"
+]
+
+# Đọc nội dung từ tệp input
+with open('t2.txt', 'r', encoding='utf-8') as file:
+    lines = file.readlines()
+
+# Lọc các dòng không chứa các chuỗi cần xóa
+filtered_lines = [
+    line for line in lines if not any(substring in line for substring in strings_to_remove)
+]
+
+# Ghi kết quả vào tệp output
+with open('gob', 'w', encoding='utf-8') as file:
+    file.writelines(filtered_lines)
+
+print("Quá trình xử lý đã hoàn tất!")
+```
+
+sau z chúng ta binwalk được file nén sau được con đường hy vọng.
+
+```python
+╭─   nart   ~/Solve                                                                          ✔  03:10:54 AM  ─╮
+╰─❯ binwalk -e pls.zip                                                                                               ─╯
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             gzip compressed data, has original file name: "blueteam.bmp", from Unix, last modified: 2022-04-08 06:35:19
+27707         0x6C3B          gzip compressed data, has original file name: "discord.png", from Unix, last modified: 2022-09-25 06:48:33
+27734         0x6C56          PNG image, 256 x 256, 8-bit colormap, non-interlaced
+29086         0x719E          gzip compressed data, has original file name: "Flag.kdbx", from Unix, last modified: 2022-10-24 06:24:10
+31373         0x7A8D          gzip compressed data, has original file name: "gaixinh.jpg", from Unix, last modified: 2022-07-19 18:20:33
+40164         0x9CE4          gzip compressed data, has original file name: "kcsc.png", from Unix, last modified: 2022-09-25 06:48:33
+53705         0xD1C9          gzip compressed data, has original file name: "meme.jpg", from Unix, last modified: 2022-09-25 06:48:33
+69258         0x10E8A         gzip compressed data, has original file name: "update.sh", from Unix, last modified: 2022-10-24 06:59:42
+```
+thấy được đích r
+
+![image](https://github.com/user-attachments/assets/0d331f03-b9cd-467e-a04c-1df059a2332f)
+
+Sau khi mò thì thấy file Flag.kdbx hợp lý nhất nên sẽ tấn công nó.
+
 
