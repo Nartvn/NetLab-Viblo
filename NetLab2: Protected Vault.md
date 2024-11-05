@@ -136,7 +136,10 @@ Có vẻ như file ```.kdbx``` là file nén đặc biệt nên cần tải côn
 
 Không chỉ là đặc biệt mà còn cần key.
 
-![image](https://github.com/user-attachments/assets/f8199a70-2bbd-479b-b6ee-4b290d5b426a)
+```python
+ python3 keepass2john.py Flag.kdbx > pass
+```
+
 
 
 
