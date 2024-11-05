@@ -125,9 +125,6 @@ thấy được đích r
 
 ![image](https://github.com/user-attachments/assets/0d331f03-b9cd-467e-a04c-1df059a2332f)
 
-
-
-
 Sau khi mò thì thấy file Flag.kdbx hợp lý nhất nên sẽ tấn công nó.
 
 Có vẻ như file ```.kdbx``` là file nén đặc biệt nên cần tải công cụ đặc biệt để mở nó.
@@ -136,10 +133,75 @@ Có vẻ như file ```.kdbx``` là file nén đặc biệt nên cần tải côn
 
 Không chỉ là đặc biệt mà còn cần key.
 
-```python
- python3 keepass2john.py Flag.kdbx > pass
-```
+Chúng ta sẽ hash nó ra và get key bằng hashcat vì không thể kiếm thấy key trong file.
 
+![image](https://github.com/user-attachments/assets/5deafc64-f33f-4076-bee6-33a37c0ccb00)
+
+tôi lưu vào file ```pass```. Và chạy chay tìm pass.
+
+```python
+╭─   nart   ~/Solve/_pls.zip.extracted                                            ✔  1m 14s   12:37:02 PM  ─╮
+╰─❯ hashcat -m 13400 -a 0 hash Wiki10k.txt                                                                           ─╯
+hashcat (v6.2.6) starting
+
+OpenCL API (OpenCL 3.0 PoCL 5.0+debian  Linux, None+Asserts, RELOC, SPIR, LLVM 16.0.6, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+==================================================================================================================================================
+* Device #1: cpu-haswell-12th Gen Intel(R) Core(TM) i5-12500H, 2848/5760 MB (1024 MB allocatable), 16MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Optimizers applied:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 4 MB
+
+Dictionary cache built:
+* Filename..: Wiki10k.txt
+* Passwords.: 10000
+* Bytes.....: 76508
+* Keyspace..: 10000
+* Runtime...: 0 secs
+
+$keepass$*2*60000*0*54b674142f9a18aaed00cf79a0bfc32ba37b843b48123f453a83c2c81ca44ffe*24dfb9b36f51c496db792487fa2368078a41f51f0b84ffe57e427e6efe6d987f*b9772351efb550cb41d4d41c0ae6022c*0904ea8a12808b2a8e15385b6891f97e92bf35241f1e21598dec77ef1eae8347*1c22d2dc121964a9c2f89891eea06739c66631f083b09045989ea6bde85f3f8a:iloveyou
+
+Session..........: hashcat
+Status...........: Cracked
+Hash.Mode........: 13400 (KeePass 1 (AES/Twofish) and KeePass 2 (AES))
+Hash.Target......: $keepass$*2*60000*0*54b674142f9a18aaed00cf79a0bfc32...5f3f8a
+Time.Started.....: Tue Nov  5 12:41:04 2024 (2 secs)
+Time.Estimated...: Tue Nov  5 12:41:06 2024 (0 secs)
+Kernel.Feature...: Pure Kernel
+Guess.Base.......: File (Wiki10k.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:      230 H/s (4.41ms) @ Accel:32 Loops:256 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests (total), 1/1 (100.00%) Digests (new)
+Progress.........: 512/10000 (5.12%)
+Rejected.........: 0/512 (0.00%)
+Restore.Point....: 0/10000 (0.00%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:59904-60000
+Candidate.Engine.: Device Generator
+Candidates.#1....: 123456 -> guinness
+
+Started: Tue Nov  5 12:40:10 2024
+Stopped: Tue Nov  5 12:41:08 2024
+```
+pass nhận được là ```iloveyou```
+
+giờ nhập vào và getkey thôi.
+
+![image](https://github.com/user-attachments/assets/7bb70ad8-7d0f-42e0-a16a-83366e75518b)
+
+flag : ```Flag{NetLab2_DNS_3xf1ltr4t10n_15_5t3al7hy}```
 
 
 
